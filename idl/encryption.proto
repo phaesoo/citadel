@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package citadel;
+
+service Encryption {
+    rpc Encrypt(EncryptionRequest) returns (EncryptionResponse);
+    rpc Decrypt(DecryptionRequest) returns (DecryptionResponse);
+}
+
+message EncryptionRequest {
+    string key_id = 1;
+    string plaintext = 2;
+}
+
+message EncryptionResponse {
+    string key_id = 1;
+    string ciphertext = 2;
+}
+
+message DecryptionRequest {
+    string key_id = 1;
+    string ciphertext = 2;
+}
+
+message DecryptionResponse {
+    string key_id = 1;
+    string plaintext = 2;
+}

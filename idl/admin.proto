@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package citadel;
+
+service Admin {
+    rpc RegisterKey(RegisterRequest) returns (RegisterResponse);
+    rpc DeregisterKey(RegisterRequest) returns (RegisterResponse);
+}
+
+message RegisterRequest {
+    string key_id = 1;
+}
+
+message RegisterResponse {
+    string key_id = 1;
+}
+
+message DeregisterRequest {
+    string key_id = 1;
+}
+
+message DeregisterResponse {
+    string key_id = 1;
+}
