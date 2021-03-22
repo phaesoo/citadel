@@ -1,0 +1,18 @@
+package migrations
+
+import (
+	"github.com/jmoiron/sqlx"
+	migrate "github.com/phaesoo/sqlx-migrate"
+)
+
+
+var {{MigrationTitle}} = migrate.Migration{
+	ID: "MIGRATION_ID",
+	Name: "MIGRATION_NAME",
+	Migrate: func(tx *sqlx.Tx) error {
+		return nil
+	},
+	Rollback: func(tx *sqlx.Tx) error {
+		return nil
+	},
+}

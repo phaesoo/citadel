@@ -52,16 +52,6 @@ endif
 lint:
 	golangci-lint run --timeout=5m --new-from-rev=$(shell git merge-base $(shell git branch | sed -n -e 's/^\* \(.*\)/\1/p') origin/main) --enable=unparam --enable=misspell --enable=prealloc
 
-# Remove all compiled binaries from the directory
-.PHONY: clean
-clean:
-	go clean
-
-# Analyze the code for any unused dependencies
-.PHONY: prune-deps
-prune-deps:
-	go mod tidy
-
 # Build proto files
 .PHONY: proto
 proto:
@@ -80,3 +70,16 @@ proto-gw:
 	--grpc-gateway_opt grpc_api_configuration=./api_config.yaml \
 	--grpc-gateway_opt standalone=true \
 	proto/*.proto
+
+# Migrate rdb.
+.PHONY: migrate
+migrate-mysql:
+	go run db/migrate/main.go
+
+# Create a new empty migration file.
+.PHONY: migration
+migration:
+	$(eval VER := $(shell date +"%Y%m%d%H%M%S"))
+	$(eval FILE := db/migrate/migrations/migration_$(VER).go)
+	cp db/migrate/migrations/template.txt $(FILE)
+	sed -i "s/MIGRATION_ID/$(VER)/g" $(FILE)

@@ -1,0 +1,47 @@
+citadel:
+  name: citadel
+  host: 0.0.0.0
+  port: 10280
+  profile: false # Enable pprof endpoints
+  metrics: false # Enable expvar metrics at GET /debug/vars
+
+mysql:
+  host: 0.0.0.0
+  port: 33306
+  database: citadel
+  user: citadel_user
+  password: citadel_pswd
+  tlsRequired: false
+  ca:
+  logging: true
+
+redis:
+  host: 0.0.0.0
+  port: 36379
+  database: 0
+  tlsRequired: false
+  authRequired: false
+  password:
+  ca:
+  logging: true
+
+# See https://www.elastic.co/guide/en/apm/agent/go/master/configuration.html
+apm:
+  serverUrl: # Must be set through ELASTIC_APM_SERVER_URL
+  serviceName: # Must be set through ELASTIC_APM_SERVICE_NAME
+  serviceVersion: # Must be set through ELASTIC_APM_SERVICE_VERSION
+  active: # Must be enabled through ELASTIC_APM_ACTIVE
+  redactedFields: # Must be set through ELASTIC_APM_SANITIZE_FIELD_NAMES
+  environment: # Must be set through ELASTIC_APM_ENVIRONMENT
+  secretToken: # Must be set through ELASTIC_APM_SECRET_TOKEN, only when required
+  logFile: # Set through ELASTIC_APM_LOG_FILE for debugging
+  logLevel: # Set through ELASTIC_APM_LOG_LEVEL for debugging
+
+sentry:
+  dsn: # "https://a5810b57d2f64ad3ba161f595cf13d96@sentry.io/5174184"
+
+log:
+  # panic, fatal, error, warn, info, debug, trace 중 1
+  level: trace
+  formatJson: false
+  env: local
