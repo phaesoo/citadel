@@ -1,9 +1,16 @@
 syntax = "proto3";
 
 package citadel;
+option go_package = "github.com/phaesoo/citadel/gen/go/proto";
+
+import "google/api/annotations.proto";
 
 service Admin {
-    rpc RegisterKey(RegisterRequest) returns (RegisterResponse);
+    rpc RegisterKey(RegisterRequest) returns (RegisterResponse){
+        option (google.api.http) = {
+            get: "/v2/users/{key_id}"  // 추가된 부분
+        };
+    }
     rpc DeregisterKey(RegisterRequest) returns (RegisterResponse);
 }
 

@@ -61,3 +61,22 @@ clean:
 .PHONY: prune-deps
 prune-deps:
 	go mod tidy
+
+# Build proto files
+.PHONY: proto
+proto:
+	protoc -I . --go_out ./gen/go \
+	--go_opt paths=source_relative \
+	--go-grpc_out ./gen/go \
+	--go-grpc_opt paths=source_relative \
+	proto/*.proto
+
+# Build proto gateway
+.PHONY: proto-gw
+proto-gw:
+	protoc -I . --grpc-gateway_out ./gen/gw \
+	--grpc-gateway_opt logtostderr=true \
+	--grpc-gateway_opt paths=source_relative \
+	--grpc-gateway_opt grpc_api_configuration=./api_config.yaml \
+	--grpc-gateway_opt standalone=true \
+	proto/*.proto

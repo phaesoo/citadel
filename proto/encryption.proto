@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package citadel;
+option go_package = "github.com/phaesoo/citadel/gen/go/proto";
 
 service Encryption {
     rpc Encrypt(EncryptionRequest) returns (EncryptionResponse);
