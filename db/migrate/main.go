@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/phaesoo/citadel/configs"
-	"github.com/phaesoo/citadel/db/migrate/migrations"
-	"github.com/phaesoo/citadel/pkg/db"
+	"github.com/phaesoo/keybox/configs"
+	"github.com/phaesoo/keybox/db/migrate/migrations"
+	"github.com/phaesoo/keybox/pkg/db"
 	migrate "github.com/phaesoo/sqlx-migrate"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"

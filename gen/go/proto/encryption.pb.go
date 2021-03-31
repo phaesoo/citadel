@@ -293,16 +293,16 @@ func file_proto_encryption_proto_rawDescGZIP() []byte {
 
 var file_proto_encryption_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_encryption_proto_goTypes = []interface{}{
-	(*EncryptionRequest)(nil),  // 0: citadel.EncryptionRequest
-	(*EncryptionResponse)(nil), // 1: citadel.EncryptionResponse
-	(*DecryptionRequest)(nil),  // 2: citadel.DecryptionRequest
-	(*DecryptionResponse)(nil), // 3: citadel.DecryptionResponse
+	(*EncryptionRequest)(nil),  // 0: keybox.EncryptionRequest
+	(*EncryptionResponse)(nil), // 1: keybox.EncryptionResponse
+	(*DecryptionRequest)(nil),  // 2: keybox.DecryptionRequest
+	(*DecryptionResponse)(nil), // 3: keybox.DecryptionResponse
 }
 var file_proto_encryption_proto_depIdxs = []int32{
-	0, // 0: citadel.Encryption.Encrypt:input_type -> citadel.EncryptionRequest
-	2, // 1: citadel.Encryption.Decrypt:input_type -> citadel.DecryptionRequest
-	1, // 2: citadel.Encryption.Encrypt:output_type -> citadel.EncryptionResponse
-	3, // 3: citadel.Encryption.Decrypt:output_type -> citadel.DecryptionResponse
+	0, // 0: keybox.Encryption.Encrypt:input_type -> keybox.EncryptionRequest
+	2, // 1: keybox.Encryption.Decrypt:input_type -> keybox.DecryptionRequest
+	1, // 2: keybox.Encryption.Encrypt:output_type -> keybox.EncryptionResponse
+	3, // 3: keybox.Encryption.Decrypt:output_type -> keybox.DecryptionResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

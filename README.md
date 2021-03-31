@@ -1,6 +1,6 @@
-# Citadel
+# KeyBox
 
-Standalone MSA key management service
+Key management service
 
 # Getting started
 

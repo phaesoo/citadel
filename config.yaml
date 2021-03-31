@@ -1,5 +1,5 @@
-citadel:
-  name: citadel
+keybox:
+  name: keybox
   host: 0.0.0.0
   port: 10280
   profile: false # Enable pprof endpoints
@@ -8,9 +8,9 @@ citadel:
 mysql:
   host: 0.0.0.0
   port: 33306
-  database: citadel
-  user: citadel_user
-  password: citadel_pswd
+  database: keybox
+  user: keybox_user
+  password: keybox_pswd
   tlsRequired: false
   ca:
   logging: true

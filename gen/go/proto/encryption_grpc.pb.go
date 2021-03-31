@@ -32,7 +32,7 @@ func NewEncryptionClient(cc grpc.ClientConnInterface) EncryptionClient {
 
 func (c *encryptionClient) Encrypt(ctx context.Context, in *EncryptionRequest, opts ...grpc.CallOption) (*EncryptionResponse, error) {
 	out := new(EncryptionResponse)
-	err := c.cc.Invoke(ctx, "/citadel.Encryption/Encrypt", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/keybox.Encryption/Encrypt", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (c *encryptionClient) Encrypt(ctx context.Context, in *EncryptionRequest, o
 
 func (c *encryptionClient) Decrypt(ctx context.Context, in *DecryptionRequest, opts ...grpc.CallOption) (*DecryptionResponse, error) {
 	out := new(DecryptionResponse)
-	err := c.cc.Invoke(ctx, "/citadel.Encryption/Decrypt", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/keybox.Encryption/Decrypt", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func _Encryption_Encrypt_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/citadel.Encryption/Encrypt",
+		FullMethod: "/keybox.Encryption/Encrypt",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EncryptionServer).Encrypt(ctx, req.(*EncryptionRequest))
@@ -108,7 +108,7 @@ func _Encryption_Decrypt_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/citadel.Encryption/Decrypt",
+		FullMethod: "/keybox.Encryption/Decrypt",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(EncryptionServer).Decrypt(ctx, req.(*DecryptionRequest))
@@ -120,7 +120,7 @@ func _Encryption_Decrypt_Handler(srv interface{}, ctx context.Context, dec func(
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Encryption_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "citadel.Encryption",
+	ServiceName: "keybox.Encryption",
 	HandlerType: (*EncryptionServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

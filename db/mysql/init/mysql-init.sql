@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS citadel;
-CREATE DATABASE IF NOT EXISTS citadel_test;
-GRANT ALL PRIVILEGES ON `citadel`.* TO `citadel_user`@`%`;
-GRANT ALL PRIVILEGES ON `citadel_test`.* TO `citadel_user`@`%`;
+CREATE DATABASE IF NOT EXISTS keybox;
+CREATE DATABASE IF NOT EXISTS keybox_test;
+GRANT ALL PRIVILEGES ON `keybox`.* TO `keybox_user`@`%`;
+GRANT ALL PRIVILEGES ON `keybox_test`.* TO `keybox_user`@`%`;

@@ -257,16 +257,16 @@ func file_proto_admin_proto_rawDescGZIP() []byte {
 
 var file_proto_admin_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_proto_admin_proto_goTypes = []interface{}{
-	(*RegisterRequest)(nil),    // 0: citadel.RegisterRequest
-	(*RegisterResponse)(nil),   // 1: citadel.RegisterResponse
-	(*DeregisterRequest)(nil),  // 2: citadel.DeregisterRequest
-	(*DeregisterResponse)(nil), // 3: citadel.DeregisterResponse
+	(*RegisterRequest)(nil),    // 0: keybox.RegisterRequest
+	(*RegisterResponse)(nil),   // 1: keybox.RegisterResponse
+	(*DeregisterRequest)(nil),  // 2: keybox.DeregisterRequest
+	(*DeregisterResponse)(nil), // 3: keybox.DeregisterResponse
 }
 var file_proto_admin_proto_depIdxs = []int32{
-	0, // 0: citadel.Admin.RegisterKey:input_type -> citadel.RegisterRequest
-	0, // 1: citadel.Admin.DeregisterKey:input_type -> citadel.RegisterRequest
-	1, // 2: citadel.Admin.RegisterKey:output_type -> citadel.RegisterResponse
-	1, // 3: citadel.Admin.DeregisterKey:output_type -> citadel.RegisterResponse
+	0, // 0: keybox.Admin.RegisterKey:input_type -> keybox.RegisterRequest
+	0, // 1: keybox.Admin.DeregisterKey:input_type -> keybox.RegisterRequest
+	1, // 2: keybox.Admin.RegisterKey:output_type -> keybox.RegisterResponse
+	1, // 3: keybox.Admin.DeregisterKey:output_type -> keybox.RegisterResponse
 	2, // [2:4] is the sub-list for method output_type
 	0, // [0:2] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

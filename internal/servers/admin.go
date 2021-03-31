@@ -5,7 +5,7 @@ import (
 	"crypto/rand"
 	"crypto/rsa"
 
-	pb "github.com/phaesoo/citadel/gen/go/proto" // Update
+	pb "github.com/phaesoo/keybox/gen/go/proto" // Update
 )
 
 type AdminServer struct {

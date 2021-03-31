@@ -1,5 +1,5 @@
 
-# build: docker build --force-rm -t phaesoo/citadel .
+# build: docker build --force-rm -t phaesoo/keybox .
 
 ### 1.Dependencies
 FROM golang:1.16-alpine AS dependencies

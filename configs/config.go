@@ -51,7 +51,7 @@ func initViper() *viper.Viper {
 	if err != nil {
 		panic(err)
 	}
-	root := "citadel/"
+	root := "keybox/"
 	i := strings.LastIndex(path, root)
 	if i != -1 {
 		path = path[:i+len(root)]

@@ -1,7 +1,7 @@
 syntax = "proto3";
 
-package citadel;
-option go_package = "github.com/phaesoo/citadel/gen/go/proto";
+package keybox;
+option go_package = "github.com/phaesoo/keybox/gen/go/proto";
 
 import "google/api/annotations.proto";
 

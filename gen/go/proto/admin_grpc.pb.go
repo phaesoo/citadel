@@ -32,7 +32,7 @@ func NewAdminClient(cc grpc.ClientConnInterface) AdminClient {
 
 func (c *adminClient) RegisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
 	out := new(RegisterResponse)
-	err := c.cc.Invoke(ctx, "/citadel.Admin/RegisterKey", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/keybox.Admin/RegisterKey", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (c *adminClient) RegisterKey(ctx context.Context, in *RegisterRequest, opts
 
 func (c *adminClient) DeregisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
 	out := new(RegisterResponse)
-	err := c.cc.Invoke(ctx, "/citadel.Admin/DeregisterKey", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/keybox.Admin/DeregisterKey", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func _Admin_RegisterKey_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/citadel.Admin/RegisterKey",
+		FullMethod: "/keybox.Admin/RegisterKey",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AdminServer).RegisterKey(ctx, req.(*RegisterRequest))
@@ -108,7 +108,7 @@ func _Admin_DeregisterKey_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/citadel.Admin/DeregisterKey",
+		FullMethod: "/keybox.Admin/DeregisterKey",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AdminServer).DeregisterKey(ctx, req.(*RegisterRequest))
@@ -120,7 +120,7 @@ func _Admin_DeregisterKey_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Admin_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "citadel.Admin",
+	ServiceName: "keybox.Admin",
 	HandlerType: (*AdminServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

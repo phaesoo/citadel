@@ -10,7 +10,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 
-	gw "github.com/phaesoo/citadel/gen/gw/proto" // Update
+	gw "github.com/phaesoo/keybox/gen/gw/proto" // Update
 )
 
 var (

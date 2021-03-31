@@ -17,11 +17,11 @@ type AppConfig struct {
 
 func appConfig(v *viper.Viper) AppConfig {
 	return AppConfig{
-		Name:    v.GetString("citadel.name"),
-		Host:    v.GetString("citadel.host"),
-		Port:    v.GetInt("citadel.port"),
-		Profile: v.GetBool("citadel.profile"),
-		Metrics: v.GetBool("citadel.metrics"),
+		Name:    v.GetString("keybox.name"),
+		Host:    v.GetString("keybox.host"),
+		Port:    v.GetInt("keybox.port"),
+		Profile: v.GetBool("keybox.profile"),
+		Metrics: v.GetBool("keybox.metrics"),
 	}
 }
 

@@ -1,5 +1,5 @@
 # Meta
-NAME := citadel
+NAME := keybox
 
 # Install dependencies
 .PHONY: deps

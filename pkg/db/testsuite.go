@@ -1,11 +1,11 @@
 package db
 
 import (
-	"github.com/phaesoo/citadel/configs"
+	"github.com/phaesoo/keybox/configs"
 	"github.com/stretchr/testify/suite"
 )
 
-const testDatabase string = "citadel_test"
+const testDatabase string = "keybox_test"
 
 type TestSuite struct {
 	suite.Suite
