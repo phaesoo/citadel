@@ -5,9 +5,9 @@ go 1.16
 require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+	github.com/google/uuid v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.3.0
 	github.com/jmoiron/sqlx v1.3.1
-	github.com/phaesoo/citadel v0.0.0-20210322154052-19af8a709d0a // indirect
 	github.com/phaesoo/sqlx-migrate v0.0.5
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.2.0

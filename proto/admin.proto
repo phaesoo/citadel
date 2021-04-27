@@ -6,19 +6,23 @@ option go_package = "github.com/phaesoo/keybox/gen/go/proto";
 import "google/api/annotations.proto";
 
 service Admin {
-    rpc RegisterKey(RegisterRequest) returns (RegisterResponse){
+    rpc RegisterKey(RegisterRequest) returns (RegisterReply){
         option (google.api.http) = {
-            get: "/v2/users/{key_id}"  // 추가된 부분
+            post: "/v1/keys"
         };
     }
-    rpc DeregisterKey(RegisterRequest) returns (RegisterResponse);
+    rpc DeregisterKey(RegisterRequest) returns (RegisterReply){
+        option (google.api.http) = {
+            delete: "/v1/keys"
+        };
+    }
 }
 
 message RegisterRequest {
-    string key_id = 1;
+    string user_id = 1;
 }
 
-message RegisterResponse {
+message RegisterReply {
     string key_id = 1;
 }
 
@@ -26,6 +30,5 @@ message DeregisterRequest {
     string key_id = 1;
 }
 
-message DeregisterResponse {
-    string key_id = 1;
+message DeregisterReply {
 }

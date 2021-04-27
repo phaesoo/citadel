@@ -73,7 +73,7 @@ proto-gw:
 
 # Migrate rdb.
 .PHONY: migrate
-migrate-mysql:
+migrate:
 	go run db/migrate/main.go
 
 # Create a new empty migration file.

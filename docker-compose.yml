@@ -1,0 +1,34 @@
+version: "3.7"
+networks:
+  keybox-network:
+
+services:
+  mysql:
+    container_name: keybox-mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpw}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-keybox}
+      - MYSQL_USER=${MYSQL_USER:-keybox_user}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-keybox_pswd}
+    image: mysql:5.7.28
+    networks:
+      - keybox-network
+    ports:
+      - 33306:3306
+    restart: always
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+
+  redis:
+    container_name: keybox-redis
+    command: --appendonly yes --auto-aof-rewrite-min-size 16mb --stop-writes-on-bgsave-error no
+    image: redis:5.0.6-alpine
+    networks:
+      - keybox-network
+    ports:
+      - 36379:6379
+    restart: always
+    volumes:
+      - ./db/redis/data:/data
