@@ -18,8 +18,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AdminClient interface {
-	RegisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
-	DeregisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	RegisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error)
+	DeregisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error)
 }
 
 type adminClient struct {
@@ -30,8 +30,8 @@ func NewAdminClient(cc grpc.ClientConnInterface) AdminClient {
 	return &adminClient{cc}
 }
 
-func (c *adminClient) RegisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
-	out := new(RegisterResponse)
+func (c *adminClient) RegisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error) {
+	out := new(RegisterReply)
 	err := c.cc.Invoke(ctx, "/keybox.Admin/RegisterKey", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -39,8 +39,8 @@ func (c *adminClient) RegisterKey(ctx context.Context, in *RegisterRequest, opts
 	return out, nil
 }
 
-func (c *adminClient) DeregisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error) {
-	out := new(RegisterResponse)
+func (c *adminClient) DeregisterKey(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error) {
+	out := new(RegisterReply)
 	err := c.cc.Invoke(ctx, "/keybox.Admin/DeregisterKey", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -52,8 +52,8 @@ func (c *adminClient) DeregisterKey(ctx context.Context, in *RegisterRequest, op
 // All implementations must embed UnimplementedAdminServer
 // for forward compatibility
 type AdminServer interface {
-	RegisterKey(context.Context, *RegisterRequest) (*RegisterResponse, error)
-	DeregisterKey(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	RegisterKey(context.Context, *RegisterRequest) (*RegisterReply, error)
+	DeregisterKey(context.Context, *RegisterRequest) (*RegisterReply, error)
 	mustEmbedUnimplementedAdminServer()
 }
 
@@ -61,10 +61,10 @@ type AdminServer interface {
 type UnimplementedAdminServer struct {
 }
 
-func (UnimplementedAdminServer) RegisterKey(context.Context, *RegisterRequest) (*RegisterResponse, error) {
+func (UnimplementedAdminServer) RegisterKey(context.Context, *RegisterRequest) (*RegisterReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterKey not implemented")
 }
-func (UnimplementedAdminServer) DeregisterKey(context.Context, *RegisterRequest) (*RegisterResponse, error) {
+func (UnimplementedAdminServer) DeregisterKey(context.Context, *RegisterRequest) (*RegisterReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeregisterKey not implemented")
 }
 func (UnimplementedAdminServer) mustEmbedUnimplementedAdminServer() {}
