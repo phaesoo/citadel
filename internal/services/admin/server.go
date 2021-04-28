@@ -2,33 +2,28 @@ package admin
 
 import (
 	"context"
-	"crypto/rand"
-	"crypto/rsa"
-
-	"github.com/google/uuid"
 
 	pb "github.com/phaesoo/keybox/gen/go/proto" // Update
 )
 
 type service interface {
+	RegisterKey(ctx context.Context, userID string) (string, error)
 }
 
 type Server struct {
 	pb.UnimplementedAdminServer
-	s service
+	service service
 }
 
-func NewServer() *Server {
-	return &Server{}
+func NewServer(service service) *Server {
+	return &Server{service: service}
 }
 
-func (s *Server) RegisterKey(context.Context, *pb.RegisterRequest) (*pb.RegisterReply, error) {
-	keyID := uuid.NewString()
-	_, err := rsa.GenerateKey(rand.Reader, 2048)
+func (s *Server) RegisterKey(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterReply, error) {
+	keyID, err := s.service.RegisterKey(ctx, req.UserId)
 	if err != nil {
 		return nil, err
 	}
-
 	return &pb.RegisterReply{
 		KeyId: keyID,
 	}, nil
