@@ -24,11 +24,13 @@ func TestAuthKey(t *testing.T) {
 func Test_authKeyHash(t *testing.T) {
 	assert := assert.New(t)
 
-	var accessKey string
-	assert.NoError(faker.FakeData(&accessKey))
+	var userID string
+	assert.NoError(faker.FakeData(&userID))
+	var keyID string
+	assert.NoError(faker.FakeData(&keyID))
 
-	res := generateKey(accessKey)
-	assert.Equal(res, fmt.Sprintf(authKeyHashPrefix, accessKey))
+	res := generateKey(userID, keyID)
+	assert.Equal(res, fmt.Sprintf(authKeyHashPrefix, userID, keyID))
 }
 
 type AuthKeyTestSuite struct {
@@ -50,7 +52,7 @@ func (ts *AuthKeyTestSuite) Test_SetAuthKey() {
 
 	// Should be expired after ttl
 	time.Sleep(2 * time.Second)
-	_, err = ts.cache.AuthKey(authKey.KeyID)
+	_, err = ts.cache.AuthKey(authKey.UserID, authKey.KeyID)
 	ts.Error(err, ErrNotFound)
 }
 
@@ -61,7 +63,7 @@ func (ts *AuthKeyTestSuite) Test_GetAuthKey() {
 	err := ts.cache.SetAuthKey(authKey, 1)
 	ts.NoError(err)
 
-	res, err := ts.cache.AuthKey(authKey.KeyID)
+	res, err := ts.cache.AuthKey(authKey.UserID, authKey.KeyID)
 	ts.NoError(err)
 	ts.EqualValues(authKey, res)
 }

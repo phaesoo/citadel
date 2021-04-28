@@ -9,18 +9,18 @@ import (
 )
 
 const (
-	authKeyHashPrefix = "keybox:auth-key:%s"
+	authKeyHashPrefix = "keybox:auth-key:%s:%s"
 )
 
-func generateKey(keyID string) string {
-	return fmt.Sprintf(authKeyHashPrefix, keyID)
+func generateKey(userID, keyID string) string {
+	return fmt.Sprintf(authKeyHashPrefix, userID, keyID)
 }
 
-func (c *Cache) AuthKey(keyID string) (models.AuthKey, error) {
+func (c *Cache) AuthKey(userID, keyID string) (models.AuthKey, error) {
 	conn := c.pool.Get()
 	defer conn.Close()
 
-	key := generateKey(keyID)
+	key := generateKey(userID, keyID)
 
 	val, err := redis.Values(conn.Do("HGETALL", key))
 	if err != nil {
@@ -47,7 +47,7 @@ func (c *Cache) SetAuthKey(authKey models.AuthKey, ttl int) error {
 	conn := c.pool.Get()
 	defer conn.Close()
 
-	key := generateKey(authKey.KeyID)
+	key := generateKey(authKey.UserID, authKey.KeyID)
 
 	var err error
 	authKey.PublicKey, err = c.cipher.Encrypt(authKey.PublicKey)
@@ -69,11 +69,11 @@ func (c *Cache) SetAuthKey(authKey models.AuthKey, ttl int) error {
 	return nil
 }
 
-func (c *Cache) DeleteAuthKey(keyID string) error {
+func (c *Cache) DeleteAuthKey(userID, keyID string) error {
 	conn := c.pool.Get()
 	defer conn.Close()
 
-	key := generateKey(keyID)
+	key := generateKey(userID, keyID)
 
 	_, err := conn.Do("DEL", key)
 	if err != nil {

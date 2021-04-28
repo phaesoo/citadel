@@ -7,7 +7,7 @@ import (
 	rdb "github.com/phaesoo/keybox/pkg/db"
 )
 
-func (db *DB) AuthKey(keyID string) (models.AuthKey, error) {
+func (db *DB) AuthKey(userID, keyID string) (models.AuthKey, error) {
 	k := struct {
 		ID         int    `db:"id"`
 		KeyID      string `db:"key_id"`
@@ -24,8 +24,8 @@ func (db *DB) AuthKey(keyID string) (models.AuthKey, error) {
 		AES_DECRYPT(UNHEX(private_key), '%s') as private_key,
 		user_id
 	FROM auth_key
-	WHERE key_id = ?
-	`, db.secretKey, db.secretKey), keyID); err != nil {
+	WHERE user_id = ? and key_id = ?
+	`, db.secretKey, db.secretKey), userID, keyID); err != nil {
 		return models.AuthKey{}, err
 	}
 
@@ -48,10 +48,10 @@ func (db *DB) SetAuthKey(authKey models.AuthKey) error {
 	})
 }
 
-func (db *DB) DeleteAuthKey(keyID string) error {
+func (db *DB) DeleteAuthKey(userID, keyID string) error {
 	_, err := db.conn.Exec(`
 	DELETE FROM auth_key
-	WHERE key_id = ?
-	`)
+	WHERE user_id = ? and key_id = ?
+	`, userID, keyID)
 	return err
 }

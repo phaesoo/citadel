@@ -12,16 +12,16 @@ const (
 )
 
 type authKeyRepo interface {
-	AuthKey(ctx context.Context, keyID string) (models.AuthKey, error)
+	AuthKey(ctx context.Context, userID, keyID string) (models.AuthKey, error)
 	SetAuthKey(ctx context.Context, authKey models.AuthKey) error
-	DeleteAuthKey(ctx context.Context, keyID string) error
+	DeleteAuthKey(ctx context.Context, userID, keyID string) error
 }
 
-func (r *repo) AuthKey(ctx context.Context, keyID string) (models.AuthKey, error) {
+func (r *repo) AuthKey(ctx context.Context, userID, keyID string) (models.AuthKey, error) {
 	var authKey models.AuthKey
 	var err error
 
-	authKey, err = r.db.AuthKey(keyID)
+	authKey, err = r.db.AuthKey(userID, keyID)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return authKey, ErrNotFound
@@ -35,13 +35,13 @@ func (r *repo) SetAuthKey(ctx context.Context, authKey models.AuthKey) error {
 	return r.db.SetAuthKey(authKey)
 }
 
-func (r *repo) DeleteAuthKey(ctx context.Context, keyID string) error {
-	_, err := r.db.AuthKey(keyID)
+func (r *repo) DeleteAuthKey(ctx context.Context, userID, keyID string) error {
+	_, err := r.db.AuthKey(userID, keyID)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return ErrNotFound
 		}
 		return err
 	}
-	return r.db.DeleteAuthKey(keyID)
+	return r.db.DeleteAuthKey(userID, keyID)
 }
