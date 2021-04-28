@@ -3,27 +3,27 @@ syntax = "proto3";
 package keybox;
 option go_package = "github.com/phaesoo/keybox/gen/go/proto";
 
-service Encryption {
-    rpc Encrypt(EncryptionRequest) returns (EncryptionResponse);
-    rpc Decrypt(DecryptionRequest) returns (DecryptionResponse);
+service Encrypt {
+    rpc Encrypt(EncryptRequest) returns (EncryptReply);
+    rpc Decrypt(DecryptRequest) returns (DecryptReply);
 }
 
-message EncryptionRequest {
+message EncryptRequest {
     string key_id = 1;
     string plaintext = 2;
 }
 
-message EncryptionResponse {
+message EncryptReply {
     string key_id = 1;
     string ciphertext = 2;
 }
 
-message DecryptionRequest {
+message DecryptRequest {
     string key_id = 1;
     string ciphertext = 2;
 }
 
-message DecryptionResponse {
+message DecryptReply {
     string key_id = 1;
     string plaintext = 2;
 }
