@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/phaesoo/keybox/configs"
+	rdb "github.com/phaesoo/keybox/pkg/db"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -9,7 +10,7 @@ const testDatabase string = "keybox_test"
 
 type TestSuite struct {
 	suite.Suite
-	Conn *DB
+	Conn *rdb.DB
 }
 
 func (s *TestSuite) SetupSuite() {
@@ -21,7 +22,7 @@ func (s *TestSuite) SetupSuite() {
 		panic(err)
 	}
 
-	db, err := NewDB("mysql", connString)
+	db, err := rdb.NewDB("mysql", connString)
 	if err != nil {
 		panic(err)
 	}
