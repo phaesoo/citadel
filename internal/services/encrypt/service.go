@@ -48,3 +48,31 @@ func (s *Service) Encrypt(ctx context.Context, userID, keyID string, plaintexts 
 
 	return ciphertexts, nil
 }
+
+func (s *Service) Decrypt(ctx context.Context, userID, keyID string, ciphertexts []string) ([]string, error) {
+	authKey, err := s.repo.AuthKey(ctx, userID, keyID)
+	if err != nil {
+		return nil, err
+	}
+
+	privateKey, err := pem.ParseRsaPrivateKeyFromPemStr(authKey.PrivateKey)
+	if err != nil {
+		return nil, err
+	}
+
+	plaintexts := make([]string, len(ciphertexts))
+
+	for i, ciphertext := range ciphertexts {
+		plaintext, err := rsa.DecryptPKCS1v15(
+			rand.Reader,
+			privateKey,
+			[]byte(ciphertext),
+		)
+		if err != nil {
+			return nil, err
+		}
+		plaintexts[i] = string(plaintext)
+	}
+
+	return plaintexts, nil
+}

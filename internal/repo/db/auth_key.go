@@ -11,8 +11,8 @@ func (db *DB) AuthKey(userID, keyID string) (models.AuthKey, error) {
 	k := struct {
 		ID         int    `db:"id"`
 		KeyID      string `db:"key_id"`
-		PublicKey  string `db:"public_key"`
-		PrivateKey string `db:"private_key"`
+		PublicKey  string `db:"public_pem"`
+		PrivateKey string `db:"private_pem"`
 		UserID     string `db:"user_id"`
 	}{}
 
@@ -20,8 +20,8 @@ func (db *DB) AuthKey(userID, keyID string) (models.AuthKey, error) {
 	SELECT 
 		id,
 		key_id,
-		AES_DECRYPT(UNHEX(public_key), '%s') as public_key,
-		AES_DECRYPT(UNHEX(private_key), '%s') as private_key,
+		AES_DECRYPT(UNHEX(public_pem), '%s') as public_pem,
+		AES_DECRYPT(UNHEX(private_pem), '%s') as private_pem,
 		user_id
 	FROM auth_key
 	WHERE user_id = ? and key_id = ?
@@ -41,7 +41,7 @@ func (db *DB) AuthKey(userID, keyID string) (models.AuthKey, error) {
 func (db *DB) SetAuthKey(authKey models.AuthKey) error {
 	return rdb.WithTransaction(db.conn, func(tx rdb.Transaction) error {
 		_, err := tx.Exec(fmt.Sprintf(`
-		INSERT INTO auth_key (key_id, public_key, private_key, user_id)
+		INSERT INTO auth_key (key_id, public_pem, private_pem, user_id)
 		VALUES (?, HEX(AES_ENCRYPT(?, '%s')), HEX(AES_ENCRYPT(?, '%s')), ?, ?)
 		`, db.secretKey, db.secretKey), authKey.KeyID, authKey.PublicKey, authKey.PrivateKey, authKey.UserID)
 		return err

@@ -9,52 +9,45 @@ import (
 )
 
 func GenerateRsaKeyPair(bits int) (*rsa.PrivateKey, *rsa.PublicKey) {
-	privkey, _ := rsa.GenerateKey(rand.Reader, bits)
-	return privkey, &privkey.PublicKey
+	privateKey, _ := rsa.GenerateKey(rand.Reader, bits)
+	return privateKey, &privateKey.PublicKey
 }
 
-func ExportRsaPrivateKeyAsPemStr(privkey *rsa.PrivateKey) string {
-	privkey_bytes := x509.MarshalPKCS1PrivateKey(privkey)
-	privkey_pem := pem.EncodeToMemory(
+func ExportRsaPrivateKeyAsPemStr(privateKey *rsa.PrivateKey) string {
+	privatePem := pem.EncodeToMemory(
 		&pem.Block{
 			Type:  "RSA PRIVATE KEY",
-			Bytes: privkey_bytes,
+			Bytes: x509.MarshalPKCS1PrivateKey(privateKey),
 		},
 	)
-	return string(privkey_pem)
+	return string(privatePem)
 }
 
-func ParseRsaPrivateKeyFromPemStr(privPEM string) (*rsa.PrivateKey, error) {
-	block, _ := pem.Decode([]byte(privPEM))
+func ParseRsaPrivateKeyFromPemStr(privatePem string) (*rsa.PrivateKey, error) {
+	block, _ := pem.Decode([]byte(privatePem))
 	if block == nil {
 		return nil, errors.New("failed to parse PEM block containing the key")
 	}
-
-	priv, err := x509.ParsePKCS1PrivateKey(block.Bytes)
-	if err != nil {
-		return nil, err
-	}
-
-	return priv, nil
+	return x509.ParsePKCS1PrivateKey(block.Bytes)
 }
 
 func ExportRsaPublicKeyAsPemStr(pubkey *rsa.PublicKey) (string, error) {
-	pubkey_bytes, err := x509.MarshalPKIXPublicKey(pubkey)
+	b, err := x509.MarshalPKIXPublicKey(pubkey)
 	if err != nil {
 		return "", err
 	}
-	pubkey_pem := pem.EncodeToMemory(
+	publicPem := pem.EncodeToMemory(
 		&pem.Block{
 			Type:  "RSA PUBLIC KEY",
-			Bytes: pubkey_bytes,
+			Bytes: b,
 		},
 	)
 
-	return string(pubkey_pem), nil
+	return string(publicPem), nil
 }
 
-func ParseRsaPublicKeyFromPemStr(pubPEM string) (*rsa.PublicKey, error) {
-	block, _ := pem.Decode([]byte(pubPEM))
+func ParseRsaPublicKeyFromPemStr(publicPem string) (*rsa.PublicKey, error) {
+	block, _ := pem.Decode([]byte(publicPem))
 	if block == nil {
 		return nil, errors.New("failed to parse PEM block containing the key")
 	}
