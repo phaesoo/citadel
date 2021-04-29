@@ -7,7 +7,7 @@ import (
 )
 
 type service interface {
-	Encrypt(ctx context.Context, userID, keyID string, plaintexts []string) ([]string, error)
+	RegisterKey(ctx context.Context, userID string) (string, error)
 }
 
 type Server struct {
@@ -19,12 +19,16 @@ func NewServer(service service) *Server {
 	return &Server{service: service}
 }
 
-func (s *Server) Encrypt(ctx context.Context, req *pb.EncryptRequest) (*pb.EncryptReply, error) {
-	ciphertexts, err := s.service.Encrypt(ctx, req.UserId, req.KeyId, req.Plaintexts)
+func (s *Server) RegisterKey(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterReply, error) {
+	keyID, err := s.service.RegisterKey(ctx, req.UserId)
 	if err != nil {
 		return nil, err
 	}
-	return &pb.EncryptReply{
-		Ciphertexts: ciphertexts,
+	return &pb.RegisterReply{
+		KeyId: keyID,
 	}, nil
+}
+
+func (s *Server) DeregisterKey(context.Context, *pb.DeregisterRequest) (*pb.DeregisterReply, error) {
+	return nil, nil
 }
