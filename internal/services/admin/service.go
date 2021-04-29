@@ -33,8 +33,8 @@ func (s *Service) RegisterKey(ctx context.Context, userID string) (string, error
 
 	authKey := models.AuthKey{
 		KeyID:      uuid.NewString(),
-		PublicKey:  pubicPem,
-		PrivateKey: pem.ExportRsaPrivateKeyAsPemStr(privateKey),
+		PublicPem:  pubicPem,
+		PrivatePem: pem.ExportRsaPrivateKeyAsPemStr(privateKey),
 		UserID:     userID,
 	}
 
@@ -55,8 +55,8 @@ func (s *Service) DeregisterKey(ctx context.Context, userID string) (string, err
 
 	authKey := models.AuthKey{
 		KeyID:      uuid.NewString(),
-		PublicKey:  pubicPem,
-		PrivateKey: pem.ExportRsaPrivateKeyAsPemStr(privateKey),
+		PublicPem:  pubicPem,
+		PrivatePem: pem.ExportRsaPrivateKeyAsPemStr(privateKey),
 		UserID:     userID,
 	}
 
