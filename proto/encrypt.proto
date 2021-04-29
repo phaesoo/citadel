@@ -9,21 +9,21 @@ service Encrypt {
 }
 
 message EncryptRequest {
-    string key_id = 1;
-    string plaintext = 2;
+    string user_id = 1;
+    string key_id = 2;
+    repeated string plaintexts = 3;
 }
 
 message EncryptReply {
-    string key_id = 1;
-    string ciphertext = 2;
+    repeated string ciphertexts = 1;
 }
 
 message DecryptRequest {
-    string key_id = 1;
-    string ciphertext = 2;
+    string user_id = 1;
+    string key_id = 2;
+    repeated string ciphertexts = 3;
 }
 
 message DecryptReply {
-    string key_id = 1;
-    string plaintext = 2;
+    repeated string plaintexts = 1;
 }
