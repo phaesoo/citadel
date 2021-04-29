@@ -13,8 +13,8 @@ var InitTables = migrate.Migration{
 		CREATE TABLE auth_key (
 			id INT PRIMARY KEY AUTO_INCREMENT,
 			key_id VARCHAR(255) UNIQUE,
-			public_key VARCHAR(1024),
-			private_key VARCHAR(1024),
+			public_pem VARCHAR(3000),
+			private_pem VARCHAR(3000),
 			user_id VARCHAR(255)
 		) ENGINE=INNODB;
 		`); err != nil {

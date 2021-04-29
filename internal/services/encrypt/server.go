@@ -8,6 +8,7 @@ import (
 
 type service interface {
 	Encrypt(ctx context.Context, userID, keyID string, plaintexts []string) ([]string, error)
+	Decrypt(ctx context.Context, userID, keyID string, ciphertexts []string) ([]string, error)
 }
 
 type Server struct {
@@ -26,5 +27,15 @@ func (s *Server) Encrypt(ctx context.Context, req *pb.EncryptRequest) (*pb.Encry
 	}
 	return &pb.EncryptReply{
 		Ciphertexts: ciphertexts,
+	}, nil
+}
+
+func (s *Server) Decrypt(ctx context.Context, req *pb.DecryptRequest) (*pb.DecryptReply, error) {
+	plaintexts, err := s.service.Decrypt(ctx, req.UserId, req.KeyId, req.Ciphertexts)
+	if err != nil {
+		return nil, err
+	}
+	return &pb.DecryptReply{
+		Plaintexts: plaintexts,
 	}, nil
 }

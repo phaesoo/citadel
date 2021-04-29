@@ -4,7 +4,7 @@ package models
 type AuthKey struct {
 	ID         int    `json:"id"`
 	KeyID      string `json:"key_id"`
-	PublicKey  string `json:"public_key"`
-	PrivateKey string `json:"private_key"`
+	PublicKey  string `json:"public_pem"`
+	PrivateKey string `json:"private_pem"`
 	UserID     string `json:"userID"`
 }
