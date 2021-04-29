@@ -8,6 +8,7 @@ import (
 
 type service interface {
 	RegisterKey(ctx context.Context, userID string) (string, error)
+	DeregisterKey(ctx context.Context, userID, keyID string) error
 }
 
 type Server struct {
@@ -29,6 +30,9 @@ func (s *Server) RegisterKey(ctx context.Context, req *pb.RegisterRequest) (*pb.
 	}, nil
 }
 
-func (s *Server) DeregisterKey(context.Context, *pb.DeregisterRequest) (*pb.DeregisterReply, error) {
-	return nil, nil
+func (s *Server) DeregisterKey(ctx context.Context, req *pb.DeregisterRequest) (*pb.DeregisterReply, error) {
+	if err := s.service.DeregisterKey(ctx, req.UserId, req.KeyId); err != nil {
+		return nil, err
+	}
+	return &pb.DeregisterReply{}, nil
 }

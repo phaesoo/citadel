@@ -27,7 +27,8 @@ message RegisterReply {
 }
 
 message DeregisterRequest {
-    string key_id = 1;
+    string user_id = 1;
+    string key_id = 2;
 }
 
 message DeregisterReply {
