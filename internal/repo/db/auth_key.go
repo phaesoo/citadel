@@ -11,8 +11,8 @@ func (db *DB) AuthKey(userID, keyID string) (models.AuthKey, error) {
 	k := struct {
 		ID         int    `db:"id"`
 		KeyID      string `db:"key_id"`
-		PublicKey  string `db:"public_pem"`
-		PrivateKey string `db:"private_pem"`
+		PublicPem  string `db:"public_pem"`
+		PrivatePem string `db:"private_pem"`
 		UserID     string `db:"user_id"`
 	}{}
 
@@ -32,8 +32,8 @@ func (db *DB) AuthKey(userID, keyID string) (models.AuthKey, error) {
 	return models.AuthKey{
 		ID:         k.ID,
 		KeyID:      k.KeyID,
-		PublicKey:  k.PublicKey,
-		PrivateKey: k.PrivateKey,
+		PublicPem:  k.PublicPem,
+		PrivatePem: k.PrivatePem,
 		UserID:     k.UserID,
 	}, nil
 }
@@ -43,7 +43,7 @@ func (db *DB) SetAuthKey(authKey models.AuthKey) error {
 		_, err := tx.Exec(fmt.Sprintf(`
 		INSERT INTO auth_key (key_id, public_pem, private_pem, user_id)
 		VALUES (?, HEX(AES_ENCRYPT(?, '%s')), HEX(AES_ENCRYPT(?, '%s')), ?, ?)
-		`, db.secretKey, db.secretKey), authKey.KeyID, authKey.PublicKey, authKey.PrivateKey, authKey.UserID)
+		`, db.secretKey, db.secretKey), authKey.KeyID, authKey.PublicPem, authKey.PrivatePem, authKey.UserID)
 		return err
 	})
 }

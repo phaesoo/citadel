@@ -8,20 +8,22 @@ import (
 
 // AppConfig is config struct for app
 type AppConfig struct {
-	Name    string
-	Host    string
-	Port    int
-	Profile bool
-	Metrics bool
+	Name      string
+	Host      string
+	Port      int
+	SecretKey string
+	Profile   bool
+	Metrics   bool
 }
 
 func appConfig(v *viper.Viper) AppConfig {
 	return AppConfig{
-		Name:    v.GetString("keybox.name"),
-		Host:    v.GetString("keybox.host"),
-		Port:    v.GetInt("keybox.port"),
-		Profile: v.GetBool("keybox.profile"),
-		Metrics: v.GetBool("keybox.metrics"),
+		Name:      v.GetString("keybox.name"),
+		Host:      v.GetString("keybox.host"),
+		Port:      v.GetInt("keybox.port"),
+		SecretKey: v.GetString("keybox.secretKey"),
+		Profile:   v.GetBool("keybox.profile"),
+		Metrics:   v.GetBool("keybox.metrics"),
 	}
 }
 

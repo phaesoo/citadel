@@ -34,8 +34,8 @@ func (c *Cache) AuthKey(userID, keyID string) (models.AuthKey, error) {
 		return authKey, ErrNotFound
 	}
 
-	authKey.PublicKey, err = c.cipher.Decrypt(authKey.PublicKey)
-	authKey.PrivateKey, err = c.cipher.Decrypt(authKey.PrivateKey)
+	authKey.PublicPem, err = c.cipher.Decrypt(authKey.PublicPem)
+	authKey.PrivatePem, err = c.cipher.Decrypt(authKey.PrivatePem)
 	if err != nil {
 		return authKey, err
 	}
@@ -50,8 +50,8 @@ func (c *Cache) SetAuthKey(authKey models.AuthKey, ttl int) error {
 	key := generateKey(authKey.UserID, authKey.KeyID)
 
 	var err error
-	authKey.PublicKey, err = c.cipher.Encrypt(authKey.PublicKey)
-	authKey.PrivateKey, err = c.cipher.Encrypt(authKey.PrivateKey)
+	authKey.PublicPem, err = c.cipher.Encrypt(authKey.PublicPem)
+	authKey.PrivatePem, err = c.cipher.Encrypt(authKey.PrivatePem)
 	if err != nil {
 		return err
 	}

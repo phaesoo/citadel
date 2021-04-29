@@ -27,7 +27,7 @@ func (s *Service) Encrypt(ctx context.Context, userID, keyID string, plaintexts 
 		return nil, err
 	}
 
-	publicKey, err := pem.ParseRsaPublicKeyFromPemStr(authKey.PublicKey)
+	publicKey, err := pem.ParseRsaPublicKeyFromPemStr(authKey.PublicPem)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (s *Service) Decrypt(ctx context.Context, userID, keyID string, ciphertexts
 		return nil, err
 	}
 
-	privateKey, err := pem.ParseRsaPrivateKeyFromPemStr(authKey.PrivateKey)
+	privateKey, err := pem.ParseRsaPrivateKeyFromPemStr(authKey.PrivatePem)
 	if err != nil {
 		return nil, err
 	}
