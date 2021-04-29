@@ -29,6 +29,6 @@ func (s *Server) RegisterKey(ctx context.Context, req *pb.RegisterRequest) (*pb.
 	}, nil
 }
 
-func (s *Server) DeregisterKey(context.Context, *pb.DecryptionRequest) (*pb.DeregisterReply, error) {
+func (s *Server) DeregisterKey(context.Context, *pb.DeregisterRequest) (*pb.DeregisterReply, error) {
 	return nil, nil
 }
