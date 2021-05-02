@@ -73,7 +73,7 @@ var (
 )
 
 func request_Admin_DeregisterKey_0(ctx context.Context, marshaler runtime.Marshaler, client proto_0.AdminClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq proto_0.RegisterRequest
+	var protoReq proto_0.DeregisterRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -89,7 +89,7 @@ func request_Admin_DeregisterKey_0(ctx context.Context, marshaler runtime.Marsha
 }
 
 func local_request_Admin_DeregisterKey_0(ctx context.Context, marshaler runtime.Marshaler, server proto_0.AdminServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq proto_0.RegisterRequest
+	var protoReq proto_0.DeregisterRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {

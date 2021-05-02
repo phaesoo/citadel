@@ -12,7 +12,7 @@ type service interface {
 }
 
 type Server struct {
-	pb.UnimplementedAdminServer
+	pb.UnimplementedEncryptServer
 	service service
 }
 

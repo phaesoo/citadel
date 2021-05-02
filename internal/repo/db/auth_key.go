@@ -42,7 +42,7 @@ func (db *DB) SetAuthKey(authKey models.AuthKey) error {
 	return rdb.WithTransaction(db.conn, func(tx rdb.Transaction) error {
 		_, err := tx.Exec(fmt.Sprintf(`
 		INSERT INTO auth_key (key_id, public_pem, private_pem, user_id)
-		VALUES (?, HEX(AES_ENCRYPT(?, '%s')), HEX(AES_ENCRYPT(?, '%s')), ?, ?)
+		VALUES (?, HEX(AES_ENCRYPT(?, '%s')), HEX(AES_ENCRYPT(?, '%s')), ?)
 		`, db.secretKey, db.secretKey), authKey.KeyID, authKey.PublicPem, authKey.PrivatePem, authKey.UserID)
 		return err
 	})
