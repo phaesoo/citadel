@@ -11,7 +11,7 @@ service Admin {
             post: "/v1/keys"
         };
     }
-    rpc DeregisterKey(RegisterRequest) returns (RegisterReply){
+    rpc DeregisterKey(DeregisterRequest) returns (DeregisterReply){
         option (google.api.http) = {
             delete: "/v1/keys"
         };
