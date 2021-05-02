@@ -3,7 +3,7 @@ package admin
 import (
 	"context"
 
-	pb "github.com/phaesoo/keybox/gen/go/proto" // Update
+	pb "github.com/phaesoo/keybox/gen/go/proto"
 )
 
 type service interface {
