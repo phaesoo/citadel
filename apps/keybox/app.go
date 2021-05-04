@@ -25,7 +25,7 @@ type App struct {
 }
 
 func NewApp(config configs.Config) *App {
-	return &App{
+	app := App{
 		grpcServer: grpc.NewServer(
 			grpc_middleware.WithUnaryServerChain(
 				grpc_recovery.UnaryServerInterceptor(),
@@ -33,6 +33,8 @@ func NewApp(config configs.Config) *App {
 		),
 		config: config,
 	}
+	app.setupServices()
+	return &app
 }
 
 func (app *App) setupServices() {

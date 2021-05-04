@@ -9,17 +9,17 @@ import (
 	"github.com/pkg/errors"
 )
 
-type repo interface {
+type Repo interface {
 	AuthKey(ctx context.Context, userID, keyID string) (models.AuthKey, error)
 	SetAuthKey(ctx context.Context, authKey models.AuthKey) error
 	DeleteAuthKey(ctx context.Context, userID, keyID string) error
 }
 
 type Service struct {
-	repo repo
+	repo Repo
 }
 
-func NewService(repo repo) *Service {
+func NewService(repo Repo) *Service {
 	return &Service{repo: repo}
 }
 
